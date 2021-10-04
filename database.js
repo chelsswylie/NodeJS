@@ -15,6 +15,10 @@ app.get("/Registrants", function (request, response) {
   response.send("The REGISTRANTS page");
 });
 
+app.get("/Administration", function (request, response) {
+  response.send("The ADMIN page");
+});
+
 mongoose.connect(
   "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority",
 
