@@ -1,0 +1,4 @@
+TO RUN:
+
+- node server.js - will run node and react together
+- npm start - will run just react
