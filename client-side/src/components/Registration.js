@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const baseURL =
+  "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority";
 
 function Registration() {
   // this.handleClick = this.handleClick.bind(this);
@@ -13,6 +17,15 @@ function Registration() {
     Country: "",
   });
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [addressOne, setAddressOne] = useState("");
+  const [addressTwo, setAddressTwo] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZIP] = useState("");
+  const [country, setCountry] = useState("");
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -24,38 +37,67 @@ function Registration() {
     });
   }
 
-  function handleClick() {
-    // event.preventDefault();
-    alert(`${input.firstname} ${input.lastname}  Registered Successfully !!!!`);
-    console.log("Registered successfully!");
+  const handleClick = async (e) => {
+    // e.preventdefault();
     const newRegistration = {
-      firstname: input.firstname,
-      lastname: input.lastname,
-      Address1: input.Address1,
-      Address2: input.Address2,
-      City: input.City,
-      State: input.State,
-      ZIP: input.ZIP,
+      firstname: firstName,
+      lastname: lastName,
+      Address1: addressOne,
+      Address2: addressTwo,
+      City: city,
+      State: state,
+      ZIP: zip,
+      Country: country,
     };
-    return newRegistration;
-    // axios.post("http://localhost:3001/Registration", newRegistration);
-  }
+    console.log(newRegistration);
+
+    await axios.post(baseURL + "/Registrants", newRegistration).then((res) => {
+      console.log(res.data);
+      setFirstName({ firstName: e.target.value });
+      setLastName({ lastName: e.target.value });
+      setAddressOne({ addressOne: e.target.value });
+      setAddressTwo({ addressTwo: e.target.value });
+      setCity({ city: e.target.value });
+      setState({ state: e.target.value });
+      setZIP({ zip: e.target.value });
+      // setCountry(country);
+    });
+  };
+
+  // function handleClick(event) {
+  //   // event.preventDefault();
+  //   alert(`${input.firstname} ${input.lastname}  Registered Successfully !!!!`);
+  //   console.log("Registered successfully!");
+  //   const newRegistration = {
+  //     firstname: input.firstname,
+  //     lastname: input.lastname,
+  //     Address1: input.Address1,
+  //     Address2: input.Address2,
+  //     City: input.City,
+  //     State: input.State,
+  //     ZIP: input.ZIP,
+  //   };
+  //   // axios.post(baseURL, newRegistration).then((response) => {
+  //   //   setInput(response.newRegistration);
+  //   // });
+  // }
   return (
     <div className="container">
       <h1>Registration page</h1>
       <form>
         <div className="form-group">
           <input
-            value={input.firstname}
+            value={input.firstName}
             onChange={handleChange}
             placeholder="First Name"
+            // {console.log(input)}
             name="firstname"
             className="form-group"
           ></input>
         </div>
         <div className="form-group">
           <input
-            value={input.lastname}
+            value={input.lastName}
             onChange={handleChange}
             placeholder="Last Name"
             name="lastname"
@@ -64,7 +106,7 @@ function Registration() {
         </div>
         <div className="form-group">
           <input
-            value={input.Address1}
+            value={input.addressOne}
             onChange={handleChange}
             placeholder="Address 1"
             name="Address1"
@@ -73,7 +115,7 @@ function Registration() {
         </div>
         <div className="form-group">
           <input
-            value={input.Address2}
+            value={input.addressTwo}
             onChange={handleChange}
             placeholder="Address 2"
             name="Address2"
@@ -82,7 +124,7 @@ function Registration() {
         </div>
         <div className="form-group">
           <input
-            value={input.City}
+            value={input.city}
             onChange={handleChange}
             placeholder="City"
             name="City"
@@ -91,7 +133,7 @@ function Registration() {
         </div>
         <div className="form-group">
           <input
-            value={input.State}
+            value={input.state}
             onChange={handleChange}
             placeholder="State"
             name="State"
@@ -100,7 +142,7 @@ function Registration() {
         </div>
         <div className="form-group">
           <input
-            value={input.ZIP}
+            value={input.zip}
             onChange={handleChange}
             placeholder="ZIP"
             name="ZIP"
@@ -112,7 +154,7 @@ function Registration() {
         <div className="form-group">
           <input
             value="US"
-            onChange={handleChange}
+            readOnly
             placeholder="Country"
             name="Country"
             className="form-group"

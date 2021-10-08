@@ -1,18 +1,29 @@
 const express = require("express");
 var app = express();
 var mongoose = require("mongoose");
-var MongoClient = require("mongodb").MongoClient;
-const Router = require("./routes/fetchroutes");
-var url = "mongodb://localhost/Registrants";
+var MongoClient = require("mongodb");
+const Router = require("./server-side/routes/fetchroutes");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+// const fetchRouter = require('./server-side/routes/fetchroutes')
+require("dotenv").config();
+var uri =
+  "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority";
 
 app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/", function (request, response) {
   response.send("Hey this works");
 });
 
 app.get("/Registrants", function (request, response) {
-  response.send("The REGISTRANTS page");
+  response.send({ express: "The REGISTRANTS page" });
+});
+
+app.get("/Administration", function (request, response) {
+  response.send("The ADMIN page");
 });
 
 mongoose.connect(
@@ -33,7 +44,7 @@ db.once("open", function () {
   // db.close();
 });
 
-app.use(Router);
+app.use("/fetchroutes", Router);
 
 app.listen(10001, function () {
   console.log("Started application on port %d", 10001);
