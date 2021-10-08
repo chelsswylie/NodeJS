@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", function (request, response) {
-  response.send("Hey this works");
+app.get("/Home", function (request, response) {
+  response.send({ express: "Hey this works" });
 });
 
 app.get("/Registrants", function (request, response) {
@@ -23,7 +23,7 @@ app.get("/Registrants", function (request, response) {
 });
 
 app.get("/Administration", function (request, response) {
-  response.send("The ADMIN page");
+  response.send({ express: "The ADMIN page" });
 });
 
 mongoose.connect(
