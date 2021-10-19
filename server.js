@@ -1,14 +1,14 @@
 const express = require("express");
 var app = express();
 var mongoose = require("mongoose");
-var MongoClient = require("mongodb");
+// var MongoClient = require("mongodb");
 const Router = require("./server-side/routes/fetchroutes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 // const fetchRouter = require('./server-side/routes/fetchroutes')
 require("dotenv").config();
-var uri =
-  "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority";
+// var uri =
+//   "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority";
 
 app.use(express.json());
 app.use(cors());
@@ -43,6 +43,7 @@ db.once("open", function () {
   // this shows in terminal
   // db.close();
 });
+console.log("This is the db", db.collection("users"));
 
 app.use("/fetchroutes", Router);
 

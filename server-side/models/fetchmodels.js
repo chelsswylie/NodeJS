@@ -14,3 +14,5 @@ var userSchema = new mongoose.Schema({
 userTable = mongoose.model("users", userSchema);
 
 module.exports = userSchema;
+
+// this file is here to support posting data from frontend to db

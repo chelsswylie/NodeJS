@@ -1,3 +1,34 @@
+import React, { useState, useEffect } from "react";
+import registrantService from "../services/registrantService";
+import { Link } from "react-router-dom";
+
+const AdminPage = (props) => {
+  const [registrants, setRegistrants] = useState([]);
+
+  useEffect(() => {
+    retrieveRegistrants();
+  }, []);
+
+  const retrieveRegistrants = () => {
+    registrantService
+      .getAll()
+      .then((response) => {
+        console.log(response.data);
+        setRegistrants(response.data.registrants);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const refreshList = () => {
+    retrieveRegistrants();
+  };
+  return <button onClick={refreshList}>Get Registrants</button>;
+};
+
+export default AdminPage;
+
 // import React, { Component } from "react";
 // import ReactDataSheet from "react-datasheet";
 // // Be sure to include styles at some point, probably during your bootstrapping
