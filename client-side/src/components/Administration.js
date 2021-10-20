@@ -13,7 +13,7 @@ const AdminPage = (props) => {
     registrantService
       .getAll()
       .then((response) => {
-        console.log(response.data);
+        console.log("This is coming from the admin page", response.data);
         setRegistrants(response.data.registrants);
       })
       .catch((e) => {

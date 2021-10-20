@@ -1,5 +1,5 @@
 // server/index.js
-
+// this page isn't currently doing anything
 const express = require("express");
 
 const PORT = process.env.PORT || 3001;

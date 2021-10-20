@@ -12,7 +12,8 @@ function App() {
   const [data, setData] = React.useState(null);
 
   const callBackendAPI = async () => {
-    const response = await fetch("/Registrants");
+    const response = await fetch("/Administration");
+
     const body = await response.json();
 
     if (response.status !== 200) {
@@ -22,8 +23,9 @@ function App() {
   };
   useEffect(() => {
     callBackendAPI()
+      // how we are getting the express response
       .then((res) => setData(res.express))
-      .then(console.log({ data }))
+      .then(console.log("we're getting this from the backend", { data }))
       .catch((err) => console.log(err));
   }, []);
 
