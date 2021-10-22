@@ -25,15 +25,16 @@ function App() {
     callBackendAPI()
       // how we are getting the express response
       .then((res) => setData(res.express))
-      .then(console.log("we're getting this from the backend", { data }))
+      // .then(console.log("we're getting this from the backend", { data }))
       .catch((err) => console.log(err));
   }, []);
 
-  async function getData(data = null) {
+  async function getData(data) {
     setData(data);
+    console.log(data);
   }
 
-  async function postData(data = null) {
+  async function postData(data) {
     setData(data);
   }
 
@@ -45,12 +46,15 @@ function App() {
       </Route>
       <Route
         path="/Registration"
-        render={(props) => <Registration {...props} data={data} />}
+        render={(props) => (
+          <Registration {...props} data={data} postData={postData} />
+        )}
       ></Route>
-      <button>{data}</button>
       <Route
         path="/Administration"
-        render={(props) => <Administration {...props} data={data} />}
+        render={(props) => (
+          <Administration {...props} data={data} getData={getData} />
+        )}
       ></Route>
     </Router>
   );

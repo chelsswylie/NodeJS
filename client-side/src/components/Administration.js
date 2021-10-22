@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import registrantService from "../services/registrantService";
+// import model from "../../../server-side/models/fetchmodels";
 import { Link } from "react-router-dom";
 
 const AdminPage = (props) => {
   const [registrants, setRegistrants] = useState([]);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [addressOne, setAddressOne] = useState("");
+  const [addressTwo, setAddressTwo] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
 
   useEffect(() => {
     retrieveRegistrants();
@@ -13,8 +21,15 @@ const AdminPage = (props) => {
     registrantService
       .getAll()
       .then((response) => {
-        console.log("This is coming from the admin page", response.data);
-        setRegistrants(response.data.registrants);
+        console.log(response.data.State, "This is coming from the admin page");
+        // setRegistrants(response.data.registrants);
+        setFirstName(response.data.firstname);
+        setLastName(response.data.lastname);
+        setAddressOne(response.data.addressOne);
+        setAddressTwo(response.data.addressTwo);
+        setCity(response.data.City);
+        setState(response.data.State);
+        setZip(response.data.ZIP);
       })
       .catch((e) => {
         console.log(e);
@@ -24,7 +39,25 @@ const AdminPage = (props) => {
   const refreshList = () => {
     retrieveRegistrants();
   };
-  return <button onClick={refreshList}>Get Registrants</button>;
+  return (
+    <div>
+      <button onClick={refreshList}>Get Registrants</button>
+      <br></br>
+      <span>{firstname}</span>
+      <br></br>
+      <span>{lastname}</span>
+      <br></br>
+      <span>{addressOne}</span>
+      <br></br>
+      <span>{addressTwo}</span>
+      <br></br>
+      <span>{city}</span>
+      <br></br>
+      <span>{state}</span>
+      <br></br>
+      <span>{zip}</span>
+    </div>
+  );
 };
 
 export default AdminPage;

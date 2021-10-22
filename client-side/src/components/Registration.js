@@ -13,7 +13,6 @@ const Registration = (props) => {
     Country: "",
   };
   const [input, setInput] = useState(initialState);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -32,6 +31,7 @@ const Registration = (props) => {
       <h1>Registration page</h1>
       <form>
         <div className="form-group">
+          {/* <h1>{this.postData}</h1> */}
           <input
             value={input.firstname}
             onChange={handleChange}

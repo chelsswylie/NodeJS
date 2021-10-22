@@ -4,23 +4,24 @@ const userModel = require("../models/fetchmodels");
 const app = express();
 var controller = require("../controllers/fetchcontroller");
 
-// router.get("/fetchInfo", controller.fetchData);
+router.get("/Administration", controller.registrant_list);
+router.get("/Registration", controller.create_registration);
 
-router.route("/").get((req, res) => {
-  userModel
-    .find()
-    .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+// router.route("/").get((req, res) => {
+//   userModel
+//     .find()
+//     .then((users) => res.json(users))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
-router.route("/newregistrants").post((req, res) => {
-  const username = req.body.username;
+// router.route("/newregistrants").post((req, res) => {
+//   const username = req.body.username;
 
-  const newUser = new userModel({ username });
+//   const newUser = new userModel({ username });
 
-  newUser
-    .save()
-    .then(() => res.json("User added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+//   newUser
+//     .save()
+//     .then(() => res.json("User added!"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 module.exports = router;

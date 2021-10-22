@@ -4,25 +4,34 @@ var mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://Sofie:P4ssw0rd@Registrants.gnzcn.mongodb.net/Registrants?retryWrites=true&w=majority";
 
-const Router = require("./routes/fetchroutes");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
+var commonRouter = require("../server-side/routes/fetchroutes");
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
-
+app.use("/fetchroutes", commonRouter);
 app.all("/Home", function (request, response) {
   response.send({ express: "Hey this works" });
 });
 
 app.all("/Registrants", function (request, response) {
-  response.send({ express: "blah" });
+  response.send({
+    // request,
+    firstname: "Jimi",
+    lastname: "Hendrix",
+    addressOne: "213 Rock",
+    addressTwo: "PO BOX 616",
+    City: "Chicago",
+    State: "IL",
+    ZIP: "45678",
+  });
 });
 
 app.all("/Administration", function (request, response) {
-  response.send({ express: "The ADMIN page" });
+  response.send({ express: request.params });
 });
 
 mongoose.connect(
@@ -43,8 +52,6 @@ db.once("open", function () {
   // db.close();
 });
 console.log("This is the db", db.collection("users"));
-
-app.use("/routes/fetchroutes", Router);
 
 app.listen(10001, function () {
   console.log("Started application on port %d", 10001);
