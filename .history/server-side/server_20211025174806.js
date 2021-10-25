@@ -27,22 +27,20 @@ db.once("open", function () {
 console.log("This is the db", db);
 
 app.all("/Registration", function (request, response) {
-  // change this to insertOne or insertMany eventualy
-  db.collection("users").insert({
-    first_name: "Bob",
-    last_name: "Saget",
-    address_one: "123 Michigan Ave",
-    address_two: null,
-    city: "Las Vegas",
-    state: "NV",
-    zip: "56656",
-  }),
-    function (error, result) {
+  db.collection("users")
+    .insertMany({ firstname: "Chris" },
+    {lastname: "Wylie"},
+    {addressOne: "12737 Commonwealth",
+    {addressTwo: null},
+    {City: "Las Vegas"},
+    {State: "NV"},
+    {ZIP: "56656"})
+    .toArray((error, result) => {
       if (error) {
         return response.status(500).send(error);
       }
       response.send(result);
-    };
+    });
   console.log("the result", result);
 });
 

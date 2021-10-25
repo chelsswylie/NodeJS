@@ -5,7 +5,7 @@ const app = express();
 var controller = require("../controllers/fetchcontroller");
 
 router.get("/Administration", controller.registrant_list);
-router.get("/Registration", controller.create_registration);
+router.post("/Registration", controller.create_registration);
 
 // router.route("/").get((req, res) => {
 //   userModel

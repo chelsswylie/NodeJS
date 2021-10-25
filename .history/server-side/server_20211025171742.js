@@ -8,8 +8,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 var commonRouter = require("../server-side/routes/fetchroutes");
-var commonModel = require("../server-side/models/fetchmodels");
-
+car commonModel = require("../server-side/models/fetchmodels")
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
@@ -17,32 +16,14 @@ app.use("/fetchroutes", commonRouter);
 app.all("/Home", function (request, response) {
   response.send({ express: "Hey this works" });
 });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
-db.once("open", function () {
-  console.log("Connected successfully");
-  // this shows in terminal
-  // db.close();
-});
-console.log("This is the db", db);
 
 app.all("/Registration", function (request, response) {
-  // change this to insertOne or insertMany eventualy
-  db.collection("users").insert({
-    first_name: "Bob",
-    last_name: "Saget",
-    address_one: "123 Michigan Ave",
-    address_two: null,
-    city: "Las Vegas",
-    state: "NV",
-    zip: "56656",
-  }),
-    function (error, result) {
-      if (error) {
-        return response.status(500).send(error);
-      }
-      response.send(result);
-    };
+  collection.find({}).toArray((error, result) => {
+    if (error) {
+      return response.status(500).send(error);
+    }
+    response.send(result);
+  });
   console.log("the result", result);
 });
 
@@ -68,6 +49,15 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function () {
+  console.log("Connected successfully");
+  // this shows in terminal
+  // db.close();
+});
+console.log("This is the db", db.collection("users"));
 
 app.listen(10001, function () {
   console.log("Started application on port %d", 10001);

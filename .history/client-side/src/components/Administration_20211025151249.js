@@ -33,12 +33,13 @@ const AdminPage = (props) => {
           setZip(response.data.ZIP),
           // console.log({ registrants });
         ];
+        console.log([allData]);
         // setRegistrants([allData]);
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log("allthedata", firstname);
+    // console.log({ registrants });
   };
 
   const refreshList = () => {

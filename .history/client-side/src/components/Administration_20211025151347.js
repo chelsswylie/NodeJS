@@ -24,7 +24,7 @@ const AdminPage = (props) => {
         console.log(response.data, "This is coming from the admin page");
         // setRegistrants(response.data.registrants);
         const allData = [
-          setFirstName(response.data.firstname),
+          setFirstName(firstname),
           setLastName(response.data.lastname),
           setAddressOne(response.data.addressOne),
           setAddressTwo(response.data.addressTwo),
@@ -33,12 +33,13 @@ const AdminPage = (props) => {
           setZip(response.data.ZIP),
           // console.log({ registrants });
         ];
+        console.log(firstname);
         // setRegistrants([allData]);
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log("allthedata", firstname);
+    // console.log({ registrants });
   };
 
   const refreshList = () => {

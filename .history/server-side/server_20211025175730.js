@@ -27,11 +27,10 @@ db.once("open", function () {
 console.log("This is the db", db);
 
 app.all("/Registration", function (request, response) {
-  // change this to insertOne or insertMany eventualy
   db.collection("users").insert({
-    first_name: "Bob",
-    last_name: "Saget",
-    address_one: "123 Michigan Ave",
+    first_name: "Chris",
+    last_name: "Wylie",
+    address_one: "12737 Commonwealth",
     address_two: null,
     city: "Las Vegas",
     state: "NV",

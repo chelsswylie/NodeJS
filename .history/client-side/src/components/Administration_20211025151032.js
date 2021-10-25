@@ -21,7 +21,7 @@ const AdminPage = (props) => {
     registrantService
       .getAll()
       .then((response) => {
-        console.log(response.data, "This is coming from the admin page");
+        console.log(response, "This is coming from the admin page");
         // setRegistrants(response.data.registrants);
         const allData = [
           setFirstName(response.data.firstname),
@@ -33,12 +33,13 @@ const AdminPage = (props) => {
           setZip(response.data.ZIP),
           // console.log({ registrants });
         ];
+        console.log(allData);
         // setRegistrants([allData]);
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log("allthedata", firstname);
+    // console.log({ registrants });
   };
 
   const refreshList = () => {

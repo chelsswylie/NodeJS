@@ -24,21 +24,22 @@ const AdminPage = (props) => {
         console.log(response.data, "This is coming from the admin page");
         // setRegistrants(response.data.registrants);
         const allData = [
-          setFirstName(response.data.firstname),
-          setLastName(response.data.lastname),
-          setAddressOne(response.data.addressOne),
-          setAddressTwo(response.data.addressTwo),
-          setCity(response.data.City),
-          setState(response.data.State),
-          setZip(response.data.ZIP),
+          setFirstName(firstname),
+          // setLastName(response.data.lastname),
+          // setAddressOne(response.data.addressOne),
+          // setAddressTwo(response.data.addressTwo),
+          // setCity(response.data.City),
+          // setState(response.data.State),
+          // setZip(response.data.ZIP),
           // console.log({ registrants });
         ];
+        console.log("allthedata", allData);
         // setRegistrants([allData]);
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log("allthedata", firstname);
+    // console.log({ registrants });
   };
 
   const refreshList = () => {

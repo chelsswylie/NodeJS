@@ -64,6 +64,7 @@ function createRegistrants(cb) {
     [
       function (callback) {
         registrantCreate(
+          // replace these values with the info we get from the form
           "Patrick",
           "Rothfuss",
           "123 Southfield",

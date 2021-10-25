@@ -20,9 +20,9 @@ const Registration = (props) => {
   };
 
   const handleClick = (e) => {
-    registrantService.postData().then((response) => {
-      console.log(e.response, "does this work?");
-    });
+    // registrantService.postData().then((response) => {
+    //   console.log(e.response, "does this work?");
+    // });
 
     e.preventDefault();
     alert(`${input.firstname} ${input.lastname}  Registered Successfully !!!!`);

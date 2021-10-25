@@ -23,7 +23,7 @@ const AdminPage = (props) => {
       .then((response) => {
         console.log(response.data, "This is coming from the admin page");
         // setRegistrants(response.data.registrants);
-        const allData = [
+
           setFirstName(response.data.firstname),
           setLastName(response.data.lastname),
           setAddressOne(response.data.addressOne),
@@ -32,7 +32,7 @@ const AdminPage = (props) => {
           setState(response.data.State),
           setZip(response.data.ZIP),
           // console.log({ registrants });
-        ];
+
         // setRegistrants([allData]);
       })
       .catch((e) => {
