@@ -19,8 +19,20 @@ exports.registrant_list = function (req, res) {
 };
 
 // POST
-exports.create_registration = function (req, res) {
-  res.send("NOT IMPLEMENTED YET: create registrant list");
+exports.create_registration = function (req, res, next) {
+  userModel
+    .find()
+    .sort([["last_name", "ascending"]])
+    .exec(function (err, list_registrants) {
+      if (Err) {
+        return next(err);
+      }
+      res.render("create_registrants", {
+        title: "Registrants",
+        create_registration: list_registrants,
+      });
+    });
+  // res.send("NOT IMPLEMENTED YET: create registrant list");
 };
 // module.exports = {
 //   fetchData: function (req, res) {

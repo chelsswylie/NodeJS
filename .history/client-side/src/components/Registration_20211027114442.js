@@ -20,13 +20,23 @@ const Registration = (props) => {
   };
 
   const handleClick = (e) => {
-    // registrantService.postData().then((response) => {
-    //   console.log(e.response, "does this work?");
-    // });
+    registrantService.postData().then((response) => {
+      console.log(e.response, "does this work?");
+    });
 
     e.preventDefault();
     alert(`${input.firstname} ${input.lastname}  Registered Successfully !!!!`);
 
+    setInput({
+      firstname: input.firstname,
+      lastname: input.lastname,
+      addressOne: input.addressOne,
+      addressTwo: input.addressTwo,
+      City: input.City,
+      State: input.State,
+      ZIP: input.ZIP,
+      Country: input.Country,
+    });
     console.log("Registered successfully!");
     console.log(initialState);
     console.log("The input", input);

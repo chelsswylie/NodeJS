@@ -18,32 +18,38 @@ app.all("/Home", function (request, response) {
   response.send({ express: "Hey this works" });
 });
 const db = mongoose.connection;
+
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
+  const json = commonModel.schema.obj;
+  const jsonObj = JSON.stringify(json);
+  console.log(jsonObj, "commenModel");
   // this shows in terminal
   // db.close();
 });
-console.log("This is the db", db);
-
+// console.log("This is the db", db);
+// this function posts to the db
 app.all("/Registration", function (request, response) {
-  // change this to insertOne or insertMany eventualy
-  db.collection("users").insert({
-    first_name: "Bob",
-    last_name: "Saget",
-    address_one: "123 Michigan Ave",
-    address_two: null,
-    city: "Las Vegas",
-    state: "NV",
-    zip: "56656",
+  console.log(request, "request");
+  // const parsedObject = commonModel.schema.obj
+  db.collection("users").insertOne({
+    first_name: JSON.stringify(commonModel.schema.obj.first_name),
+    last_name: JSON.stringify(commonModel.schema.obj.last_name),
+    address_one: JSON.stringify(commonModel.schema.obj.address_one),
+    address_two: JSON.stringify(commonModel.schema.obj.address_two),
+    city: JSON.stringify(commonModel.schema.obj.city),
+    state: JSON.stringify(commonModel.schema.obj.state),
+    zip: JSON.stringify(commonModel.schema.obj.zip),
   }),
     function (error, result) {
       if (error) {
         return response.status(500).send(error);
       }
+      console.log(result, "thee result");
       response.send(result);
     };
-  console.log("the result", result);
+  // console.log("the result", result);
 });
 
 app.all("/Administration", function (request, response) {

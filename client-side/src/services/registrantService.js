@@ -6,7 +6,7 @@ class RegistrantDataService {
   }
 
   postData() {
-    return http.get(`Registration`);
+    return http.post(`Registration`);
   }
 
   // need post function here - had it here before - was getting 404 due to wrong url
