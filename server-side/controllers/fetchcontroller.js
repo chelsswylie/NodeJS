@@ -20,19 +20,32 @@ exports.registrant_list = function (req, res) {
 
 // POST
 exports.create_registration = function (req, res, next) {
-  userModel
-    .find()
-    .sort([["last_name", "ascending"]])
-    .exec(function (err, list_registrants) {
-      if (Err) {
-        return next(err);
-      }
-      res.render("create_registrants", {
-        title: "Registrants",
-        create_registration: list_registrants,
-      });
-    });
-  // res.send("NOT IMPLEMENTED YET: create registrant list");
+  const model = {
+    firstname: "",
+    lastname: "",
+    addressOne: "",
+    addressTwo: "",
+    City: "",
+    State: "",
+    ZIP: "",
+  };
+
+  console.log("Body: ", req.body);
+  res.json({
+    msg: "We received the data",
+  });
+  // userModel
+  //   .find()
+  //   .sort([["last_name", "ascending"]])
+  //   .exec(function (err, list_registrants) {
+  //     if (Err) {
+  //       return next(err);
+  //     }
+  //     res.render("create_registrants", {
+  //       title: "Registrants",
+  //       create_registration: list_registrants,
+  //     });
+  //   });
 };
 // module.exports = {
 //   fetchData: function (req, res) {

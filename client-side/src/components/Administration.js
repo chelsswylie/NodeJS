@@ -18,27 +18,30 @@ const AdminPage = (props) => {
   }, []);
 
   const retrieveRegistrants = () => {
+    let allData;
     registrantService
       .getAll()
       .then((response) => {
-        console.log(response.data, "This is coming from the admin page");
+        let allData = response.data;
+        console.log(allData.City, "This is coming from the admin page");
+
         // setRegistrants(response.data.registrants);
-        const allData = [
-          setFirstName(response.data.firstname),
-          setLastName(response.data.lastname),
-          setAddressOne(response.data.addressOne),
-          setAddressTwo(response.data.addressTwo),
-          setCity(response.data.City),
-          setState(response.data.State),
-          setZip(response.data.ZIP),
-          // console.log({ registrants });
-        ];
+        // console.log({ registrants });
+
+        // console.log(allData);
         // setRegistrants([allData]);
+        setFirstName(allData.firstname);
+        setLastName(allData.lastname);
+        setAddressOne(allData.addressOne);
+        setAddressTwo(allData.addressTwo);
+        setCity(allData.City);
+        setState(allData.State);
+        setZip(allData.ZIP);
+        console.log("allthedata", zip);
       })
       .catch((e) => {
         console.log(e);
       });
-    console.log("allthedata", firstname);
   };
 
   const refreshList = () => {

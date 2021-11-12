@@ -14,33 +14,51 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/fetchroutes", commonRouter);
-app.all("/Home", function (request, response) {
-  response.send({ express: "Hey this works" });
-});
+// route to home page
+// app.all("/Home", function (request, response) {
+//   response.send({ express: "Hey this works" });
+// });
+
+// console.log("This is the db", db);
+// this function posts to the db
+
+mongoose.connect(
+  mongoDB,
+
+  {
+    useNewUrlParser: true,
+    // useFindAndModify: false,
+    useUnifiedTopology: true,
+  }
+);
+
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
-  const json = commonModel.schema.obj;
-  const jsonObj = JSON.stringify(json);
-  console.log(jsonObj, "commenModel");
+  const json = commonModel;
+  // const jsonObj = JSON.stringify(json);
+  // console.log(jsonObj.first_name, "Hopefully a FN from the DB.....");
+  console.log(json, "commenModel");
+
   // this shows in terminal
   // db.close();
 });
-// console.log("This is the db", db);
-// this function posts to the db
+
 app.all("/Registration", function (request, response) {
   console.log(request, "request");
+
   // const parsedObject = commonModel.schema.obj
   db.collection("users").insertOne({
-    first_name: JSON.stringify(commonModel.schema.obj.first_name),
-    last_name: JSON.stringify(commonModel.schema.obj.last_name),
-    address_one: JSON.stringify(commonModel.schema.obj.address_one),
-    address_two: JSON.stringify(commonModel.schema.obj.address_two),
-    city: JSON.stringify(commonModel.schema.obj.city),
-    state: JSON.stringify(commonModel.schema.obj.state),
-    zip: JSON.stringify(commonModel.schema.obj.zip),
+    first_name: "salt",
+    // JSON.stringify(commonModel.schema.obj.first_name),
+    // last_name: this.lastname.value,
+    // address_one: JSON.stringify(commonModel.schema.obj.address_one),
+    // address_two: JSON.stringify(commonModel.schema.obj.address_two),
+    // city: JSON.stringify(commonModel.schema.obj.city),
+    // state: JSON.stringify(commonModel.schema.obj.state),
+    // zip: JSON.stringify(commonModel.schema.obj.zip),
   }),
     function (error, result) {
       if (error) {
@@ -55,7 +73,7 @@ app.all("/Registration", function (request, response) {
 app.all("/Administration", function (request, response) {
   response.send({
     // result
-    firstname: "Jimi",
+    firstname: request.firstname,
     lastname: "Hendrix",
     addressOne: "213 Rock",
     addressTwo: "PO BOX 616",
@@ -63,17 +81,8 @@ app.all("/Administration", function (request, response) {
     State: "IL",
     ZIP: "45678",
   });
+  // console.log(response.db, "the response");
 });
-
-mongoose.connect(
-  mongoDB,
-
-  {
-    useNewUrlParser: true,
-    // useFindAndModify: false,
-    useUnifiedTopology: true,
-  }
-);
 
 app.listen(10001, function () {
   console.log("Started application on port %d", 10001);

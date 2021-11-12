@@ -1,133 +1,210 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
+import ReactDOM from "react-dom";
 import registrantService from "../services/registrantService";
+import axios from "axios";
 // import axios from "axios";
 
-const Registration = (props) => {
-  const initialState = {
-    firstname: "",
-    lastname: "",
-    addressOne: "",
-    addressTwo: "",
-    City: "",
-    State: "",
-    ZIP: "",
-    Country: "",
-  };
-  const [input, setInput] = useState(initialState);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInput({ ...input, [name]: value });
-  };
+export default class Registration extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstname: "",
+      lastname: "",
+      addressOne: "",
+      addressTwo: "",
+      City: "",
+      State: "",
+      ZIP: "",
+      Country: "",
+    };
 
-  const handleClick = (e) => {
-    registrantService.postData().then((response) => {
-      console.log(e.response, "does this work?");
+    this.handleFirstChange = this.handleFirstChange.bind(this);
+    this.handleSecondChange = this.handleSecondChange.bind(this);
+    this.handleThirdChange = this.handleThirdChange.bind(this);
+    this.handleFourthChange = this.handleFourthChange.bind(this);
+    this.handleFifthChange = this.handleFifthChange.bind(this);
+    this.handleSixthChange = this.handleSixthChange.bind(this);
+    this.handleSeventhChange = this.handleSeventhChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleFirstChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      firstname: value,
     });
+  }
 
+  handleSecondChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      lastname: value,
+    });
+  }
+
+  handleThirdChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      addressOne: value,
+    });
+  }
+
+  handleFourthChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      addressTwo: value,
+    });
+  }
+
+  handleFifthChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      City: value,
+    });
+  }
+
+  handleSixthChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      State: value,
+    });
+  }
+
+  handleSeventhChange(e) {
+    const target = e.target;
+    const value = target.value;
+    this.setState({
+      ZIP: value,
+    });
+  }
+
+  // this is going to send the data to the server
+  handleSubmit(e) {
     e.preventDefault();
-    alert(`${input.firstname} ${input.lastname}  Registered Successfully !!!!`);
+    const updatedFields = {
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      addressOne: this.state.addressOne,
+      addressTwo: this.state.addressTwo,
+      City: this.state.City,
+      State: this.state.State,
+      ZIP: this.state.ZIP,
+    };
 
-    setInput({
-      firstname: input.firstname,
-      lastname: input.lastname,
-      addressOne: input.addressOne,
-      addressTwo: input.addressTwo,
-      City: input.City,
-      State: input.State,
-      ZIP: input.ZIP,
-      Country: input.Country,
-    });
-    console.log("Registered successfully!");
-    console.log(initialState);
-    console.log("The input", input);
-  };
+    axios({
+      url: "/Administration",
+      method: "POST",
+      data: updatedFields,
+    })
+      .then(() => {
+        console.log("Data has been sent to the server");
+      })
+      .catch(() => {
+        console.log("Internal server error");
+      });
+    // registrantService.postData().then((response) => {
+    //   console.log(e.response, "does this work?");
+    // });
+    // alert below only picks up one value at a time
+    console.log(
+      this.state.firstname,
+      this.state.lastname,
+      this.state.addressOne,
+      this.state.addressTwo,
+      this.state.City,
+      this.state.State,
+      this.state.ZIP
+    );
+    alert(this.state.lastname);
+  }
 
-  return (
-    <div className="container">
-      <h1>Registration page</h1>
-      <form>
+  render() {
+    console.log("State: ", this.state);
+    return (
+      <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          {/* <h1>{this.postData}</h1> */}
-          <input
-            value={input.firstname}
-            onChange={handleChange}
-            placeholder="First Name"
-            // {console.log(input)}
-            name="firstname"
-            className="form-group"
-          ></input>
+          <label>
+            {/* First Name: */}
+            <input
+              type="text"
+              value={this.state.firstname}
+              onChange={this.handleFirstChange}
+              placeholder="First Name"
+              name="firstname"
+            />
+          </label>
+          <br />
+          <label>
+            {/* Last Name: */}
+            <input
+              type="text"
+              value={this.state.lastname}
+              onChange={this.handleSecondChange}
+              placeholder="Last Name"
+            />
+          </label>
+          <br />
+          <label>
+            {/* Address One: */}
+            <input
+              type="text"
+              value={this.state.addressOne}
+              onChange={this.handleThirdChange}
+              placeholder="Address 1"
+            />
+          </label>
+          <br />
+          <label>
+            {/* Address Two: */}
+            <input
+              type="text"
+              value={this.state.addressTwo}
+              onChange={this.handleFourthChange}
+              placeholder="Address 2"
+            />
+          </label>
+          <br />
+          <label>
+            {/* City: */}
+            <input
+              type="text"
+              value={this.state.City}
+              onChange={this.handleFifthChange}
+              placeholder="City"
+            />
+          </label>
+          <br />
+          <label>
+            {/* State: */}
+            <input
+              type="text"
+              value={this.state.State}
+              onChange={this.handleSixthChange}
+              placeholder="State"
+            />
+          </label>
+          <br />
+          <label>
+            {/* ZIP: */}
+            <input
+              type="text"
+              value={this.state.ZIP}
+              onChange={this.handleSeventhChange}
+              placeholder="ZIP"
+            />
+          </label>
         </div>
-        <div className="form-group">
-          <input
-            value={input.lastname}
-            onChange={handleChange}
-            placeholder="Last Name"
-            name="lastname"
-            className="form-group"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value={input.addressOne}
-            onChange={handleChange}
-            placeholder="Address 1"
-            name="addressOne"
-            className="form-group"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value={input.addressTwo}
-            onChange={handleChange}
-            placeholder="Address 2"
-            name="addressTwo"
-            className="form-group"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value={input.City}
-            onChange={handleChange}
-            placeholder="City"
-            name="City"
-            className="form-group"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value={input.State}
-            onChange={handleChange}
-            placeholder="State"
-            name="State"
-            className="form-group"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value={input.ZIP}
-            onChange={handleChange}
-            placeholder="ZIP"
-            name="ZIP"
-            className="form-group"
-            maxLength="9"
-            minLength="5"
-          ></input>
-        </div>
-        <div className="form-group">
-          <input
-            value="US"
-            readOnly
-            placeholder="Country"
-            name="Country"
-            className="form-group"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-          ></input>
-        </div>
-        <button onClick={handleClick}>Submit</button>
+
+        <input type="submit" value="Submit" />
       </form>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default Registration;
+ReactDOM.render(<Registration />, document.getElementById("root"));

@@ -1,15 +1,15 @@
-import http from "../http-common";
+// import http from "../http-common";
 
-class RegistrantDataService {
-  getAll() {
-    return http.get(`Administration`);
-  }
+// class RegistrantDataService {
+//   getAll() {
+//     return http.get(`/Administration`);
+//   }
 
-  postData() {
-    return http.post(`Registration`);
-  }
+//   postData(data) {
+//     return http.post(`/Registration`, data);
+//   }
 
-  // need post function here - had it here before - was getting 404 due to wrong url
-}
+//   // need post function here - had it here before - was getting 404 due to wrong url
+// }
 
-export default new RegistrantDataService();
+// export default new RegistrantDataService();

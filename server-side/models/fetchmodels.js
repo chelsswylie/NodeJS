@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// the schema
 var userSchema = new mongoose.Schema({
   first_name: String,
   last_name: String,
@@ -16,6 +17,10 @@ var userSchema = new mongoose.Schema({
 userSchema.virtual("url").get(function () {
   return "/Administration" + this._id;
 });
-module.exports = mongoose.model("users", userSchema);
 
-// this file is here to support posting data from frontend to db
+// the model
+var registrantModel = mongoose.model("users", userSchema, "users");
+module.exports = {
+  registrantModel,
+};
+// (model name, schema name, collection name)
